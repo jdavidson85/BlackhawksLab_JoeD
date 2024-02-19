@@ -1,0 +1,55 @@
+struct Player {
+let name: String
+let number: Int
+let age: Int
+let country: String
+let height: Double
+let birthday: String
+}
+
+func analyzeTeamMembers() {
+let teamMembers: [Int: Player] = [
+    15: Player(name: "Joey Anderson", number: 15, age: 26, country: "USA", height: 6.0, birthday: "June"),
+    89: Player(name: "Andreas Athanasiou", number: 89, age: 30, country: "Canada", height: 6.2, birthday: "August"),
+    98: Player(name: "Connor Bedard", number: 98, age: 20, country: "Canada", height: 5.1, birthday: "July"),
+    90: Player(name: "Tyler Johnson", number: 12, age: 34, country: "USA", height: 5.8, birthday: "July"),
+    4: Player(name: "Seth Jones", number: 4, age: 31, country: "USA", height: 6.4, birthday: "October"),
+    5: Player(name: "Conor Murphy", number: 5, age: 32, country: "USA", height: 6.4, birthday: "July"),
+    11: Player(name: "Taylor Raddysh", number: 12, age: 26, country: "Canada", height: 6.3, birthday: "July"),
+]
+
+let sortedByAge = teamMembers.values.sorted { $0.age < $1.age }
+print("Players sorted by age:")
+for player in sortedByAge {
+    print("\(player.name) - Age: \(player.age)")
+}
+
+let sortedByCountry = teamMembers.values.sorted { $0.country < $1.country }
+print("\nPlayers sorted by country:")
+for player in sortedByCountry {
+    print("\(player.name) - Country: \(player.country)")
+}
+
+let totalAge = teamMembers.values.reduce(0) { $0 + $1.age }
+let averageAge = Double(totalAge) / Double(teamMembers.count)
+print("\nAverage age of the players: \(averageAge)")
+
+let totalHeight = teamMembers.values.reduce(0.0) { $0 + $1.height }
+let averageHeight = totalHeight / Double(teamMembers.count)
+print("Average height of the players: \(averageHeight)")
+
+var birthdayMonths: [String: Int] = [:]
+for player in teamMembers.values {
+    let month = player.birthday
+    if let count = birthdayMonths[month] {
+        birthdayMonths[month] = count + 1
+    } else {
+        birthdayMonths[month] = 1
+    }
+}
+
+let mostCommonMonth = birthdayMonths.max { $0.value < $1.value }?.key ?? ""
+print("\nMonth with the most player birthdays: \(mostCommonMonth)")
+}
+
+analyzeTeamMembers()
